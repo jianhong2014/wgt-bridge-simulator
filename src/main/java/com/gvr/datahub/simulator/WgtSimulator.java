@@ -70,7 +70,7 @@ public class WgtSimulator {
             }
             while(!socket.isClosed()){
                 try {
-                   // sendForEach5Minus(socket);
+                    sendForEach5Minus(socket);
                     String cmd  = bufferRead(socket);
                     if(StringUtils.isNotBlank(cmd)){
                         if(cmd.contains("GetNozState")){
@@ -78,6 +78,8 @@ public class WgtSimulator {
                             int edx = cmd.indexOf("\"",sdx);
                             String mid = cmd.substring(sdx,edx);
                             sendVisQueryResp(socket,mid);
+                        }else if(cmd.contains("WGTSetup")){
+                            sendWgtSetpResp(socket);
                         }
                     }
                 } catch (IOException e) {
@@ -134,6 +136,14 @@ public class WgtSimulator {
         String msg = "<GetNozStateRes  MID=\""+mid+"\"  WGTID= \"110\" NozNr=\"1\" State=\""+"1"+"\" " +
                 "VIUType=\"TT\" Track1=\""+visId+"\" Track2=\" \" Odo=\"OOOOOOOO\" EH=\"HQuery\" />";
         logger.info("send sendVisQueryResp report {}",msg);
+        mids ++;
+        socket.getOutputStream().write(msg.getBytes());
+        socket.getOutputStream().flush();
+    }
+
+    private void sendWgtSetpResp(Socket socket) throws IOException {
+        String msg = "<WGTSetupRes MID=\""+mids+"\"  RC=\"000\" /> ";
+        logger.info("send sendWgtSetpResp report {}",msg);
         mids ++;
         socket.getOutputStream().write(msg.getBytes());
         socket.getOutputStream().flush();
