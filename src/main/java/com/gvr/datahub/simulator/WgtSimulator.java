@@ -25,7 +25,7 @@ public class WgtSimulator {
 
     private String wgtId = "110";
 
-    private String visId = "TestVisId001";
+    private String visId = "TCOUPAN07";
 
     private long startTime;
 
@@ -70,7 +70,7 @@ public class WgtSimulator {
             }
             while(!socket.isClosed()){
                 try {
-                    sendForEach5Minus(socket);
+                   // sendForEach5Minus(socket);
                     String cmd  = bufferRead(socket);
                     if(StringUtils.isNotBlank(cmd)){
                         if(cmd.contains("GetNozState")){
@@ -109,7 +109,7 @@ public class WgtSimulator {
     private void sendForEach5Minus(Socket socket) throws IOException {
         long curTime = System.currentTimeMillis();
         long diff = curTime - startTime;
-        if(diff%50000 == 0){
+        if(diff%5000 == 0){
             String state = enterOrLeave?"1":"0";
             String cVisId = enterOrLeave?visId:"";
             sendVisReport(state,cVisId,socket);

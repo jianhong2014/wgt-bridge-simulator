@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_FILE_MAX_HISTORY" value="90"/>
+    <property name="LOG_FILE_MAX_SIZE" value="50MB"/>
+    <property name="LOG_FILE" value="${home}/logs/WgtBrdigeSimulator.log"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProfile name="dev">
+        <logger name="com.gvr.datahub" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+    <springProfile name="test,prod">
+        <logger name="com.gvr.datahub" level="WARN" additivity="false">
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+</configuration>

@@ -1,0 +1,9 @@
+dc:
+  host: 10.28.192.60
+vis:
+  wgtHost: 10.28.188.34
+  service:
+    sinoiv:
+      url: "http://sinoiv.jd.com"
+    gvr:
+      url: "http://sinoiv.jd.com"
